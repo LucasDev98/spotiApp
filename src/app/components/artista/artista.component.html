@@ -1,1 +1,22 @@
-<p>artista works!</p>
+
+<div class="col-12">
+    <input
+          (keyup)="buscarArtista( termino.value )"
+          type="text"
+          class="form-control"
+          placeholder="Buscar Artista"
+          #termino >
+</div>
+
+
+<div class="card-columns mt-3">
+  <div *ngFor="let item of artists" class="card">
+    <img [src]="item.images[0].url" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ item.name }}</h5>
+      <p class="badge badge-primary ml-1" *ngFor="let artista of item.artists">{{ artista.name }}</p>
+      <a  href="{{item.external_urls.spotify}}"target="_blank" class="btn btn-primary btn-block">Visitar Album</a>
+    </div>
+  </div>
+
+</div>
