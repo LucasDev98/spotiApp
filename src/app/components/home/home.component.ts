@@ -9,21 +9,17 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 })
 export class HomeComponent {
     releases : any []= [];
-
+    spinner : boolean = true;
     constructor( private spotifyService : SpotifyService ) {
 
         //This service will obtain the 20 releases
         this.spotifyService.getNewReleases()
               .subscribe( ( data : any )=> {
+
                 this.releases = data;
+                console.log(this.releases)
+                this.spinner = false;
               })
-
-       if( localStorage.getItem('token') ) {
-
-          console.log( this.releases );
-       }else {
-        console.log('no existe token')
-       }
       //------------------------------------------
     }
 

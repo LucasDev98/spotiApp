@@ -40,6 +40,20 @@ export class SpotifyService {
           }) );
   }
 
+  getArtistById( id : string  ){
+      return this.getQuery( `artists/${id}` )
+          .pipe( map( ( data : any ) => {
+            return data;
+          }))
+  }
+
+  getTopTracks( id : string ) {
+      return this.getQuery(`artists/${id}/top-tracks?market=ES`)
+          .pipe( map( ( data : any  ) => {
+            return data.tracks;
+          }))
+  }
+
   reactivarToken( tokenString : string ){
     this.token = tokenString;
     this.guardarTokenLS();

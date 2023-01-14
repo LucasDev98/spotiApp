@@ -1,13 +1,6 @@
 
  <h1 class="text-center mb-4">Ultimos Lanzamientos</h1>
-<div class="card-columns">
-  <div *ngFor="let item of releases" class="card">
-    <img [src]="item.images[0].url" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{ item.name }}</h5>
-      <p class="badge badge-primary ml-1" *ngFor="let artista of item.artists">{{ artista.name }}</p>
-      <a  href="{{item.external_urls.spotify}}"target="_blank" class="btn btn-primary btn-block">Visitar Album</a>
-    </div>
-  </div>
-
-</div>
+ <div class="center">
+  <app-spinner *ngIf="spinner"></app-spinner>
+ </div>
+<app-tarjeta [data]="releases" ></app-tarjeta>

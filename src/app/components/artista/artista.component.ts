@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router, RouterLinkActive } from '@angular/router';
 import { SpotifyService } from 'src/app/services/spotify.service';
+
 
 @Component({
   selector: 'app-artista',
@@ -7,15 +9,38 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   styleUrls: ['./artista.component.css']
 })
 export class ArtistaComponent {
-  artists : any [] = [];
-  constructor( private spotifyService : SpotifyService ) {
+      spinner! :  boolean;
+      artist   : any  = [];
+      topTracks! : any [];
 
-  }
-  buscarArtista( termino : string ) {
-      this.spotifyService.getArtists( termino )
-          .subscribe( ( data : any ) => {
-            console.log( data )
-            this.artists = data;
-          });
-  }
+      constructor( private activateRoute : ActivatedRoute,
+                   private spotifyService : SpotifyService  ) {
+        this.activateRoute.params.subscribe( (  param : any ) => {
+                  this.spinner = true;
+                  this.getArtista( param.id );
+                  this.getTopTracks( param.id );
+                })
+
+        }
+
+
+        getArtista( id : string ) {
+
+          this.spotifyService.getArtistById( id )
+              .subscribe(  data => {
+                  console.log( data )
+                  this.artist = data;
+                  this.spinner = false;
+              })
+      }
+
+      getTopTracks( id : string ) {
+
+          this.spotifyService.getTopTracks( id )
+              .subscribe( data => {
+                console.log( data );
+                this.topTracks = data;
+              })
+      }
+
 }

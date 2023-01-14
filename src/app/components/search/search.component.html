@@ -1,1 +1,13 @@
-<p>search works!</p>
+
+<div class="col-12">
+  <input
+        (keyup)="buscarArtista( termino.value )"
+        type="text"
+        class="form-control"
+        placeholder="Buscar Artista"
+        #termino >
+</div>
+<div class="center">
+  <app-spinner *ngIf="spinner"></app-spinner>
+</div>
+<app-tarjeta [data]="artists" *ngIf="!spinner"></app-tarjeta>

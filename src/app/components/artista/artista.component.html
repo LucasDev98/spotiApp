@@ -1,22 +1,51 @@
-
-<div class="col-12">
-    <input
-          (keyup)="buscarArtista( termino.value )"
-          type="text"
-          class="form-control"
-          placeholder="Buscar Artista"
-          #termino >
+<div class="center">
+  <app-spinner *ngIf="spinner"></app-spinner>
+</div>
+<div class="row" *ngIf="!spinner">
+  <div class="col-4">
+    <img [src]="artist | noImage " class="circle img-thumbnail" alt="imagen artista">
+  </div>
+  <div class="col-4">
+    <h1>{{artist.name}}</h1>
+    <p>Followers :{{ artist.followers.total}} </p>
+    <a [href]="artist.external_urls" target="_blank">Visitar Artista</a>
+  </div>
+  <div class="col-4">
+    <a class="btn btn-danger mt-5" routerLink="home">Regresar</a>
+  </div>
 </div>
 
+<hr>
 
-<div class="card-columns mt-3">
-  <div *ngFor="let item of artists" class="card">
-    <img [src]="item.images[0].url" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{ item.name }}</h5>
-      <p class="badge badge-primary ml-1" *ngFor="let artista of item.artists">{{ artista.name }}</p>
-      <a  href="{{item.external_urls.spotify}}"target="_blank" class="btn btn-primary btn-block">Visitar Album</a>
-    </div>
-  </div>
 
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Foto</th>
+        <th>Albúm</th>
+        <th>Canción</th>
+        <th>Vista Previa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let track of topTracks">
+        <td>
+          <img [src]="track.album | noImage" alt="imagen album" class="img-thumbnail circle img-album"
+            style="height: 100px;">
+        </td>
+        <td>
+          <p>{{ track.album.name }}</p>
+        </td>
+        <td>
+          <p>{{ track.name }}</p>
+        <td>
+            <iframe style="border-radius:12px"
+              [src]="track.uri | domSeguro :'https://open.spotify.com/embed?uri='" width="100%"
+              height="220" frameBorder="0" allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+          </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

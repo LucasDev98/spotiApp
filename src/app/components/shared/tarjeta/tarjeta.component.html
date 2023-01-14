@@ -1,0 +1,11 @@
+
+<div class="card-columns mt-3">
+  <div *ngFor="let item of data" class="card">
+    <img [src]="item | noImage" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">{{ item.name }}</h5>
+      <p class="badge badge-primary ml-1" *ngFor="let artista of item.artists">{{ artista.name }}</p>
+      <a  *ngIf="item.type == 'album'" href="{{item.external_urls.spotify}}"target="_blank" class="btn btn-primary btn-block">Visitar Album</a>
+      <button *ngIf="item.type == 'artist'" (click)="verArtista( item.id )" target="_blank" class="btn btn-primary btn-block">Ver artista</button>
+    </div>
+  </div>
